@@ -1,28 +1,33 @@
 import 'package:flutter/material.dart';
-import 'package:projeto/model/listaCompras.dart';
-import 'package:projeto/model/produtos.dart';
-import 'package:projeto/view/listacompras_view.dart';
 
+import '../model/produtos.dart';
 
-
-class AddlistaView extends StatefulWidget {
-  const AddlistaView({super.key});
+class AddProdutosView extends StatefulWidget {
+  const AddProdutosView({super.key});
 
   @override
-  State<AddlistaView> createState() => _AddlistaViewState();
+  State<AddProdutosView> createState() => _AddProdutosViewState();
 }
 
-class _AddlistaViewState extends State<AddlistaView> {
-  List<ListaCompras> listaCompras = [];
-  var titulo = "Adicionar Lista";
+class _AddProdutosViewState extends State<AddProdutosView> {
+  List<Produtos> listaProdutos = [];
+
+  var titulo = "Adicionar Produto";
+
   var formKey = GlobalKey<FormState>();
   var txtNome = TextEditingController();
+  var txtPreco = TextEditingController();
+  var txtQuantidade = TextEditingController();
 
+  @override
+  void initState() {
+    super.initState();
+  }
 
   @override
   Widget build(BuildContext context) {
-
-    listaCompras = ModalRoute.of(context)!.settings.arguments as List<ListaCompras>;
+    listaProdutos = ModalRoute.of(context)!.settings.arguments as List<Produtos>;
+    print(listaProdutos.length);
 
     return Scaffold(
       body: Padding(
@@ -58,6 +63,38 @@ class _AddlistaViewState extends State<AddlistaView> {
                 },
               ),
               const SizedBox(height: 30),
+              TextFormField(
+                controller: txtPreco,
+                decoration: const InputDecoration(
+                  labelText: 'Preço',
+                  border: OutlineInputBorder(),
+                ),
+                validator: (value) {
+                  if (value == null) {
+                    return 'Digite o preço do produto';
+                  } else if (value.isEmpty) {
+                    return 'Digite o preço do produto';
+                  }
+                  return null;
+                },
+              ),
+              const SizedBox(height: 30),
+              TextFormField(
+                controller: txtQuantidade,
+                decoration: const InputDecoration(
+                  labelText: 'Quantidade',
+                  border: OutlineInputBorder(),
+                ),
+                validator: (value) {
+                  if (value == null) {
+                    return 'Digite a quantidade';
+                  } else if (value.isEmpty) {
+                    return 'Digite a quantidade';
+                  }
+                  return null;
+                },
+              ),
+              const SizedBox(height: 30),
              
               const SizedBox(height: 40),
               Row(
@@ -69,10 +106,10 @@ class _AddlistaViewState extends State<AddlistaView> {
                     ),
                     onPressed: () {
                       if (formKey.currentState!.validate()) { 
-                          var nome = txtNome.text;
-                          List<Produtos> listProdutosVazia = [];
-                          listaCompras.add(ListaCompras(nome, listProdutosVazia));
-
+                          String nome = txtNome.text;
+                          String preco = txtPreco.text;
+                          String quantidade = txtQuantidade.text;
+                          listaProdutos.add(Produtos(nome,preco, quantidade , false));
                           Navigator.pop(context);                    
                       } else {
                         //Erro na Validação

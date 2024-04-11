@@ -15,6 +15,7 @@ class Produtos {
       lista.add(Produtos('Alface','4,90', '1 Kg', true));
       lista.add(Produtos('Feijão','3,90', '1 Kg', false));
       lista.add(Produtos('Batata','6,90', '2 Kg', true));
+      
     return lista;
   }
 }

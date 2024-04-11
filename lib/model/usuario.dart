@@ -10,6 +10,7 @@ class Usuario {
     List<Usuario> lista = [];
       lista.add(Usuario('android','android@email.com', 'androide'));
       lista.add(Usuario('LUcas','lucas@email.com', 'lucas111'));
+      
     return lista;
   }
 }

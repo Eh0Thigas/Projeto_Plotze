@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:projeto/model/listaCompras.dart';
 import 'package:projeto/view/usuario/cadastroUsuario_view.dart';
 
 import '../../model/usuario.dart';
@@ -13,6 +14,8 @@ class LoginView extends StatefulWidget {
 
 class _LoginViewState extends State<LoginView> {
   List<Usuario> listaUsuario = [];
+  List<ListaCompras> listaCompras = ListaCompras.gerarLista();
+
   var titulo = "Login";
   var formKey = GlobalKey<FormState>();
   var txtEmail = TextEditingController();
@@ -88,10 +91,8 @@ class _LoginViewState extends State<LoginView> {
                         setState(() {
                           var email = txtEmail.text;
                           var senha = txtSenha.text;                         
-                          if(email == 'android@email.com' && senha == "androide"){
-                            Navigator.of(context).pushReplacement(
-                              MaterialPageRoute(builder: (context) => const Homeview())
-                            );
+                          if(email == '123' && senha == "12345678"){
+                            Navigator.pushNamed(context, 'home_view', arguments: listaCompras);
                           }
                         
                         });

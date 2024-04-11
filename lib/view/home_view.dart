@@ -2,9 +2,8 @@ import 'package:flutter/material.dart';
 
 
 
-import '../model/usuario.dart';
+import '../model/listaCompras.dart';
 import 'usuario/cadastroUsuario_view.dart';
-import 'listaCompras_view.dart';
 import 'usuario/listausuario_view.dart';
 import 'sobre_view.dart';
 
@@ -18,23 +17,12 @@ class Homeview extends StatefulWidget {
 
 class  _HomeviewState extends State<Homeview> {
   var texto = "Lojinha do seu Zé";
-  List<Usuario> listaUsuario = [];
+  List<ListaCompras>  listaCompras = ListaCompras.gerarLista();
+
   @override
   Widget build(BuildContext context) {
-    MaterialApp(
-      debugShowCheckedModeBanner: false,
-      title: 'Navegação',
-      //
-      // ROTAS DE NAVEGAÇÃO
-      //
-      initialRoute: 'Home',
-      routes: {
-        'Home': (context) => Homeview(),
-        'Lista': (context) => ListaComprasView(),
-        'Usuario': (context) => ListausuarioView(),
-        'Sobre': (context) => SobreView(),
-      },
-    );
+    listaCompras = ModalRoute.of(context)!.settings.arguments as List<ListaCompras>;
+
     return Scaffold(
       body: Padding(
         padding: const EdgeInsets.fromLTRB(30, 80, 30, 50),
@@ -86,9 +74,7 @@ class  _HomeviewState extends State<Homeview> {
                         minimumSize: const Size(50, 50),
                     ),
                     onPressed:(){
-                      Navigator.of(context).push(
-                                MaterialPageRoute(builder: (context) => const ListaComprasView())
-                              );
+                      Navigator.pushNamed(context, 'listacompras_view', arguments: listaCompras);
                     },
                     child: const Text(
                         'Listas de Compras',

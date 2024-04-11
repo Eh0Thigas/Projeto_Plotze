@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 
-
 import '../model/produtos.dart';
 
 class ProdutosView extends StatefulWidget {
@@ -15,55 +14,61 @@ class ProdutosView extends StatefulWidget {
 
 class _ProdutosViewState extends State<ProdutosView> {
 
-  List<Produtos> lista = [];
-  var status = false;
+  List<Produtos> listaProdutos = [];
+  bool status = false;
 
   @override
   void initState() {
-    lista = Produtos.gerarLista();
     super.initState();
   }
 
-
   @override
   Widget build(BuildContext context) {
+    listaProdutos = ModalRoute.of(context)!.settings.arguments as List<Produtos>;
+
     return Scaffold(
       appBar: AppBar(
         title: Text('Listas de Produtos'),
       ),
-      body: Padding(
-        padding: EdgeInsets.all(20),
-        child: ListView.builder(
-
-          itemCount: lista.length,
+      body: ListView.builder(
+          itemCount: listaProdutos.length,
           itemBuilder: (context, index) {
             return Card(
               color: Colors.blue.shade50,
               child: ListTile(
                 leading: Icon(Icons.shopping_cart),
-                title: Text(lista[index].nome),
+                title: Text(listaProdutos[index].nome),
                 hoverColor: Colors.red.shade50,
                 //pressionar um item da lista
                 trailing: Switch(
-                  value: status,
-                  onChanged: (bool value) {
+                  value: listaProdutos[index].comprado,
+                  onChanged: (value) {
                     setState(() {
-                      lista[index].comprado = value;
-                      status = lista[index].comprado;
+                      listaProdutos[index].comprado = !listaProdutos[index].comprado;
                     });
                   },
                 ),
                 //remover um item da lista
                 onLongPress: () {
                   setState(() {
-                    lista.removeAt(index);
+                    listaProdutos.removeAt(index);
                   });
                 },
               ),
             );
           },
         ),
-      ),
-    );
+        floatingActionButton: FloatingActionButton(
+          onPressed: (){
+            Navigator.pushNamed(
+              context,
+              'addprodutos_view',
+              arguments: listaProdutos,
+            );
+            //lista.add(ListaCompras("Abajur"));
+          },
+          child: Icon(Icons.add),
+        ),
+      );
   }
 }
