@@ -1,8 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:projeto/model/listaCompras.dart';
 import 'package:projeto/model/produtos.dart';
-import 'package:projeto/view/listacompras_view.dart';
-
 
 
 class AddlistaView extends StatefulWidget {

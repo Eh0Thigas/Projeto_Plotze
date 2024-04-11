@@ -1,8 +1,6 @@
 import 'package:flutter/material.dart';
 
 import '../model/listaCompras.dart';
-import 'addlista_view.dart';
-import 'produtos_view.dart';
 
 class ListaComprasView extends StatefulWidget {
   const ListaComprasView({super.key});

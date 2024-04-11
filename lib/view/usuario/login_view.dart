@@ -30,6 +30,12 @@ class _LoginViewState extends State<LoginView> {
           key: formKey,
           child: Column(
             children: [
+              Image.asset(
+                'lib/image/login.png',
+                width: 200,
+                height: 200,
+              ),
+              SizedBox(height: 20,),
               Center(
                 child: Text(
                   titulo,
