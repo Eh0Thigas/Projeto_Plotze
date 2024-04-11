@@ -1,6 +1,6 @@
 class ListaCompras {
   final String nome;
-
+  List produto = [];
   ListaCompras(this.nome);
 
   //geração de uma lista dinâmica de Usuarios

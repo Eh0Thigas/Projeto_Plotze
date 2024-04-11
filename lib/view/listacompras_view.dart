@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 
 import '../model/listaCompras.dart';
+import 'addlista_view.dart';
+import 'produtos_view.dart';
 
 class ListaComprasView extends StatefulWidget {
   const ListaComprasView({super.key});
@@ -11,6 +13,8 @@ class ListaComprasView extends StatefulWidget {
 
 class _ListaComprasViewState extends State<ListaComprasView> {
   List<ListaCompras> lista = [];
+
+
 
   @override
   void initState() {
@@ -25,15 +29,8 @@ class _ListaComprasViewState extends State<ListaComprasView> {
       appBar: AppBar(
         title: Text('Listas de Compras'),
       ),
-      body: Padding(
-        padding: EdgeInsets.all(20),
-        //
-        // ListView
-        //
-        child: ListView.builder(
-          //Quantidade de itens
+      body: ListView.builder(
           itemCount: lista.length,
-          //Aparência de cada item
           itemBuilder: (context, index) {
             return Card(
               color: Colors.blue.shade50,
@@ -42,11 +39,15 @@ class _ListaComprasViewState extends State<ListaComprasView> {
                 title: Text(lista[index].nome),
                 hoverColor: Colors.red.shade50,
                 //pressionar um item da lista
-                onTap: () {
-                  ScaffoldMessenger.of(context).showSnackBar(
-                    SnackBar(content: Text(lista[index].nome)),
-                  );
-                },
+                trailing: Icon(Icons.arrow_right),
+                      onTap: () {
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                            builder: (context) => ProdutosView(),
+                          ),
+                        );
+                      },
                 //remover um item da lista
                 onLongPress: () {
                   setState(() {
@@ -57,7 +58,16 @@ class _ListaComprasViewState extends State<ListaComprasView> {
             );
           },
         ),
-      ),
-    );
+        floatingActionButton: FloatingActionButton(
+          onPressed: (){
+            // Navigator.of(context).push(
+            //   MaterialPageRoute(builder: (context) => const AddlistaView())
+            // );
+            lista.add(ListaCompras("Abajur"));
+          },
+          child: Icon(Icons.add),
+        ),
+      );
+    
   }
 }

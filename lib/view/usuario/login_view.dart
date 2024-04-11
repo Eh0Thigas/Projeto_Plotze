@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:projeto/view/cadastroUsuario_view.dart';
+import 'package:projeto/view/usuario/cadastroUsuario_view.dart';
 
-import '../model/usuario.dart';
-import 'home_view.dart';
+import '../../model/usuario.dart';
+import '../home_view.dart';
 
 class LoginView extends StatefulWidget {
   const LoginView({super.key});
@@ -102,20 +102,6 @@ class _LoginViewState extends State<LoginView> {
                     },
                     child: const Text(
                       'Login',
-                      style: TextStyle(fontSize: 14),
-                    ),
-                  ),
-                  OutlinedButton(
-                    style: OutlinedButton.styleFrom(
-                      minimumSize: const Size(100, 60),
-                    ),
-                    onPressed: () {
-                     Navigator.of(context).pushReplacement(
-                        MaterialPageRoute(builder: (context) => const CadastroUsuarioView())
-                     );
-                    },
-                    child: const Text(
-                      'Cadastrar',
                       style: TextStyle(fontSize: 14),
                     ),
                   ),

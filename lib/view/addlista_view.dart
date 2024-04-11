@@ -1,22 +1,22 @@
 import 'package:flutter/material.dart';
+import 'package:projeto/model/listaCompras.dart';
+import 'package:projeto/view/listacompras_view.dart';
 
-import '../model/usuario.dart';
-import 'home_view.dart';
 
-class CadastroUsuarioView extends StatefulWidget {
-  const CadastroUsuarioView({super.key});
+
+class AddlistaView extends StatefulWidget {
+  const AddlistaView({super.key});
 
   @override
-  State<CadastroUsuarioView> createState() => _CadastroUsuarioViewState();
+  State<AddlistaView> createState() => _AddlistaViewState();
 }
 
-class _CadastroUsuarioViewState extends State<CadastroUsuarioView> {
-  List<Usuario> listaUsuario = [];
-  var titulo = "Cadastro Usuario";
+class _AddlistaViewState extends State<AddlistaView> {
+  List<ListaCompras> lista = [];
+  var titulo = "Adicionar Lista";
   var formKey = GlobalKey<FormState>();
   var txtNome = TextEditingController();
-  var txtEmail = TextEditingController();
-  var txtSenha = TextEditingController();
+
 
   @override
   Widget build(BuildContext context) {
@@ -54,43 +54,7 @@ class _CadastroUsuarioViewState extends State<CadastroUsuarioView> {
                 },
               ),
               const SizedBox(height: 30),
-              TextFormField(
-                controller: txtEmail,
-                decoration: const InputDecoration(
-                  labelText: 'Email',
-                  border: OutlineInputBorder(),
-                ),
-                validator: (value) {
-                  if (value == null) {
-                    return 'Digite a seu email';
-                  } else if (value.isEmpty) {
-                    return 'Digite a seu email';
-                  }
-                  return null;
-                },
-              ),
-              const SizedBox(height: 30),
-              TextFormField(
-                controller: txtSenha,
-
-                decoration: const InputDecoration(
-                  labelText: 'Senha',
-                  border: OutlineInputBorder(),
-                ),
-
-                //
-                // Validação
-                //
-                validator: (value) {
-                  if (value == null || value.isEmpty) {
-                    return 'Digite a sua senha';
-                  } else if (value.length < 8) {
-                    return "Sua senha deve ter no minimo 8 caracteres";
-                  }
-                  return null;
-                },
-                //obscureText: true,
-              ),
+             
               const SizedBox(height: 40),
               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceEvenly,
@@ -100,18 +64,13 @@ class _CadastroUsuarioViewState extends State<CadastroUsuarioView> {
                       minimumSize: const Size(100, 60),
                     ),
                     onPressed: () {
-                      if (formKey.currentState!.validate()) {
-                        setState(() {
+                      if (formKey.currentState!.validate()) { 
                           var nome = txtNome.text;
-                          var email = txtEmail.text;
-                          var senha = txtSenha.text;
-                          listaUsuario.add(Usuario(nome, email, senha));
+                          lista.add(ListaCompras(nome));
+
                           Navigator.of(context).pushReplacement(
-                              MaterialPageRoute(builder: (context) => Homeview())
-                            );
-                        });
-                        
-                        
+                              MaterialPageRoute(builder: (context) => ListaComprasView())
+                            );                       
                       } else {
                         //Erro na Validação
                       }
@@ -126,8 +85,9 @@ class _CadastroUsuarioViewState extends State<CadastroUsuarioView> {
                       minimumSize: const Size(100, 60),
                     ),
                     onPressed: () {
-                      Navigator.of(context).pop();                  
-                
+                      Navigator.of(context).pushReplacement(
+                              MaterialPageRoute(builder: (context) => ListaComprasView())
+                            );               
                     },
                     child: const Text(
                       'Voltar',

@@ -1,7 +1,7 @@
 import 'package:device_preview/device_preview.dart';
 import 'package:flutter/material.dart';
 
-import 'view/login_view.dart';
+import 'view/usuario/login_view.dart';
 
 void main() {
   runApp(
@@ -19,6 +19,7 @@ class MainApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return const MaterialApp(
       home: LoginView(),
+      color: Color.fromARGB(255, 158, 197, 230)
     );
   }
 }

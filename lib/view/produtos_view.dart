@@ -1,21 +1,26 @@
 import 'package:flutter/material.dart';
 
-import '../model/listaCompras.dart';
-import '../model/usuario.dart';
 
-class ListausuarioView extends StatefulWidget {
-  const ListausuarioView({super.key});
+import '../model/produtos.dart';
+
+class ProdutosView extends StatefulWidget {
+  //final Produtos produto;
+  const ProdutosView({super.key});
+
 
   @override
-  State<ListausuarioView> createState() => _ListaUsuarioViewState();
+  State<ProdutosView> createState() => _ProdutosViewState();
 }
 
-class _ListaUsuarioViewState extends State<ListausuarioView> {
-  List<Usuario> lista = [];
+
+class _ProdutosViewState extends State<ProdutosView> {
+
+  List<Produtos> lista = [];
+  var status = false;
 
   @override
   void initState() {
-    lista = Usuario.gerarLista();
+    lista = Produtos.gerarLista();
     super.initState();
   }
 
@@ -24,31 +29,30 @@ class _ListaUsuarioViewState extends State<ListausuarioView> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('Listas de Usuario'),
+        title: Text('Listas de Produtos'),
       ),
       body: Padding(
         padding: EdgeInsets.all(20),
-        //
-        // ListView
-        //
         child: ListView.builder(
-          //Quantidade de itens
+
           itemCount: lista.length,
-          //Aparência de cada item
           itemBuilder: (context, index) {
             return Card(
               color: Colors.blue.shade50,
               child: ListTile(
-                leading: Icon(Icons.person),
+                leading: Icon(Icons.shopping_cart),
                 title: Text(lista[index].nome),
-                subtitle: Text(lista[index].email),
                 hoverColor: Colors.red.shade50,
                 //pressionar um item da lista
-                onTap: () {
-                  ScaffoldMessenger.of(context).showSnackBar(
-                    SnackBar(content: Text(lista[index].nome)),
-                  );
-                },
+                trailing: Switch(
+                  value: status,
+                  onChanged: (bool value) {
+                    setState(() {
+                      lista[index].comprado = value;
+                      status = lista[index].comprado;
+                    });
+                  },
+                ),
                 //remover um item da lista
                 onLongPress: () {
                   setState(() {
